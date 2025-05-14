@@ -149,6 +149,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 750px;
+    max-width: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -157,15 +158,20 @@ body {
     position: relative;
     width: 100%;
     height: auto;
-    margin-left: 10px;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .video {
     position: absolute;
     top: 0;
     left: 0;
-    width: 750px;
-    height: 624.31px;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     z-index: 1;
 }
@@ -176,6 +182,7 @@ body {
     height: auto;
     z-index: 2;
     pointer-events: none;
+    display: block;
 }
 
 .bottom-half {
@@ -183,7 +190,8 @@ body {
     height: auto;
     z-index: 3;
     pointer-events: none;
-    margin-top: -210px; /* adjust if there's a visible gap */
+    display: block;
+    /* JavaScript will control the margin-top dynamically */
 }
 
 .globe-svg {
@@ -1048,7 +1056,10 @@ img.green-dot.grn3 {
     .video {
         width: 100%;
         height: auto;
-        max-width: 750px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
     }
     
     .dotted-arc-cards {
@@ -1250,6 +1261,10 @@ img.green-dot.grn3 {
         line-height: 40px;
         margin-bottom: 25px;
         max-width: 100%;
+    }
+    
+    .sphere-wrapper {
+        width: 100%;
     }
 }
 
