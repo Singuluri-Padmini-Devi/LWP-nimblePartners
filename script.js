@@ -21,6 +21,22 @@ window.addEventListener('load', () => {
         });
     });
 
+    // Sticky header on scroll
+    const header = document.querySelector('.header-container');
+    let scrollPosition = 0;
+    
+    window.addEventListener('scroll', () => {
+        scrollPosition = window.scrollY;
+        
+        if (scrollPosition > 10) {
+            header.classList.add('sticky');
+            document.body.classList.add('sticky-header');
+        } else {
+            header.classList.remove('sticky');
+            document.body.classList.remove('sticky-header');
+        }
+    });
+
     // Partners carousel
     const track = document.getElementById('carousel-track');
     const carousel = document.getElementById('partners-carousel');
@@ -56,63 +72,4 @@ window.addEventListener('load', () => {
       
         animate();
     }
-    
-    // Call globe adjustment function
-    adjustGlobeElements();
-    
-    // Add resize event listener
-    window.addEventListener('resize', adjustGlobeElements);
 });
-
-// Function to adjust the globe elements
-function adjustGlobeElements() {
-    const topHalf = document.querySelector('.top-half');
-    const video = document.querySelector('.video');
-    const bottomHalf = document.querySelector('.bottom-half');
-    const sphereWrapper = document.querySelector('.sphere-wrapper');
-    
-    if (!topHalf || !video || !bottomHalf) return;
-    
-    // First, get the natural dimensions of the top half image
-    const topHalfNaturalWidth = topHalf.naturalWidth || 750; // Fallback if naturalWidth is not available
-    const topHalfNaturalHeight = topHalf.naturalHeight || 624; // Fallback
-
-    // Set width based on container
-    const wrapperWidth = sphereWrapper.offsetWidth;
-    const imageRatio = topHalfNaturalHeight / topHalfNaturalWidth;
-    
-    // Set video dimensions to match exactly with the top half image
-    video.style.width = wrapperWidth + 'px';
-    video.style.height = (wrapperWidth * imageRatio) + 'px';
-    
-    // Ensure the top half image has the same dimensions
-    topHalf.style.width = wrapperWidth + 'px';
-    topHalf.style.height = 'auto';
-    
-    // Get computed dimensions after setting
-    const computedHeight = topHalf.offsetHeight;
-    
-    // Calculate the proper margin for the bottom half
-    // This value needs to be adjusted based on the specific design
-    // We use a percentage of the top half's height
-    const overlapRatio = 0.34; // Adjust this based on your design
-    bottomHalf.style.marginTop = (-computedHeight * overlapRatio) + 'px';
-    bottomHalf.style.width = wrapperWidth + 'px';
-    
-    // If the gap between halves is still visible, fine-tune the margin
-    // This might require adjustment based on testing
-    const globeContent = document.querySelector('.globe-content');
-    if (globeContent) {
-        // Position the content relative to the sphere
-        globeContent.style.marginTop = (-computedHeight * 0.22) + 'px'; // Adjust this percentage as needed
-    }
-    
-    console.log('Globe adjusted:', {
-        wrapperWidth,
-        computedHeight,
-        videoHeight: video.offsetHeight,
-        bottomMargin: bottomHalf.style.marginTop
-    });
-}
-
-// No need for additional carousel or event listener code as it's now included in the window.onload handler
