@@ -1226,6 +1226,7 @@ img.green-dot.grn3 {
     .logo img {
         width: 150px;
         height: auto;
+        margin-left: 0px;
     }
     
     .lp-login-btn {
